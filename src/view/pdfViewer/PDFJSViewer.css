@@ -1,0 +1,11 @@
+.textLayer {
+  pointer-events: none;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.exitButton:hover {
+  color: rgb(140, 140, 164);
+  cursor: pointer;
+}
