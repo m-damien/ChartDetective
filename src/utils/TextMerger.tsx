@@ -15,11 +15,11 @@ export default class TextMerger {
      * Also works for text that is rendered
      * @param {[ShapeCommand]} shapes 
      */
-    static getTextsFromShapes(shapes : ShapeCommand[]) : Promise<TextChunk[][]> {
+    static getTextsFromShapes(shapes : ShapeCommand[], tryOCR = true) : Promise<TextChunk[][]> {
         return new Promise((resolve, reject) => {
             const result = TextMerger.getTextsFromTextShapes(shapes)
 
-            if (result === null) {
+            if (result === null && tryOCR) {
                 // No letters found, we try parsing the text instead
                 TextMerger.parseRenderedText(shapes).then((chunks) => {
                     if (chunks.length > 0) resolve(TextMerger._chunksToLines(chunks));

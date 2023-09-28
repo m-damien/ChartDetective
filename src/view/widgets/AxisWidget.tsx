@@ -61,8 +61,7 @@ export default class AxisWidget extends TableWidget {
     onShapesDroppedOnTicks(shapes : ShapeCommand[]) : boolean {
         var extractor = new AxisExtractor(this.props.axis);
         UndoManager.get().addUndoRestorePoint();
-        extractor.onShapesSelected(shapes, this.props.shapes);
-        this.cachedTable = null;
+        extractor.onShapesSelected(shapes, this.props.shapes, () => {this.cachedTable = null; this.updateDatatable();});
         return true;
     }
 

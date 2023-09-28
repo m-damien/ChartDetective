@@ -65,13 +65,8 @@ export default class AxisExtractor {
         return !isNaN(tickLabel as any);
     }
 
-    onShapesSelected(selectedShapes : ShapeCommand[], allShapes : ShapeCommand[] = []) : void {
-        TextMerger.getTextsFromShapes(selectedShapes).then (texts => {
-            if (texts === null) {
-                alert("No text found in selection");
-                return;
-            }
-    
+    onShapesSelected(selectedShapes : ShapeCommand[], allShapes : ShapeCommand[] = [], onUpdateCallback : () => void = null) : void {
+        const textToAxis = texts => {
             // We look for axis labels
             const numberedTicks = [];
             const stringTicks = [];
@@ -111,6 +106,41 @@ export default class AxisExtractor {
             // Link the axis with the shapes
             // TODO: Remove unused shapes
             this.axis.shapes = this.axis.shapes.concat(selectedShapes);
+
+            if (onUpdateCallback) onUpdateCallback();
+        }
+
+
+        TextMerger.getTextsFromShapes(selectedShapes, false).then(texts => {   
+            let snackBarMsg = "Ticks extracted from PDF.";
+            const prevTicks = [...this.axis.ticks];
+            const prevShapes = [...this.axis.shapes];
+            const prevInterpolation = this.axis._interpolation;
+
+            if (texts === null) {
+                snackBarMsg = "No text found in the selection.";
+            } else {
+                textToAxis(texts);
+            }
+
+            Snackbar.addMessage(snackBarMsg, null, null, {
+                'Use OCR instead': () => {
+                    // First, we restore the axis as it was
+                    this.axis.ticks = prevTicks;
+                    this.axis.shapes = prevShapes;
+                    this.axis._interpolation = prevInterpolation;
+
+                    // Then we try extracting ticks using OCR
+                    Snackbar.clear();
+                    Snackbar.addMessage("Extracting text using OCR...", null, null, null);
+                    TextMerger.parseRenderedText(selectedShapes).then((chunks) => {
+                        if (chunks.length > 0) textToAxis(TextMerger._chunksToLines(chunks));
+                        Snackbar.clear();
+                        Snackbar.addMessage("Ticks extracted using OCR");
+                        if (onUpdateCallback) onUpdateCallback();
+                    })
+                }
+            });
         });
     }
 
