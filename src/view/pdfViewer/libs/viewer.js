@@ -3538,7 +3538,7 @@ const defaultOptions = {
     kind: OptionKind.VIEWER + OptionKind.PREFERENCE
   },
   defaultUrl: {
-    value: "example.pdf",
+    value: process.env.PUBLIC_URL + "/example.pdf",
     kind: OptionKind.VIEWER
   },
   defaultZoomValue: {
@@ -3688,7 +3688,7 @@ const defaultOptions = {
     kind: OptionKind.WORKER
   },
   workerSrc: {
-    value: "libs/pdf.worker.js",
+    value: process.env.PUBLIC_URL + "/libs/pdf.worker.js",
     kind: OptionKind.WORKER
   }
 };

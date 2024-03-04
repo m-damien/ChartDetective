@@ -618,10 +618,10 @@ export default class SeriesWidget extends TableWidget {
             <div id="dragAndDropArea" style={{ display: "flex", flexDirection: "column" }}>
                 <div className="panelSeparator"> <i style={{ marginLeft: 5 }} className="fa fa-hand-pointer-o" aria-hidden="true"></i> Drag&Drop Chart Elements</div>
                 <div id="seriesDropzones" style={{ display: "flex", flexDirection: "row"}}>
-                    <ElementDropZone color="#C7E2ED" imgFile="icons/line.svg" state={this.props.state} shapes={this.props.shapes} setState={this.props.setState} type={ChartElementType.LINE} />
-                    <ElementDropZone color="rgb(229, 239, 212)" imgFile="icons/vertical_bar.svg" shapes={this.props.shapes} state={this.props.state} setState={this.props.setState} type={ChartElementType.BAR} />
-                    <ElementDropZone color="#E4CCF0" imgFile="icons/vertical_boxplot.svg" shapes={this.props.shapes} state={this.props.state} setState={this.props.setState} type={ChartElementType.BOX_PLOT} />
-                    <ElementDropZone color="#F6E6C3" imgFile="icons/scatter.svg" shapes={this.props.shapes} state={this.props.state} setState={this.props.setState} type={ChartElementType.SCATTER} />
+                    <ElementDropZone color="#C7E2ED" imgFile={process.env.PUBLIC_URL +"/icons/line.svg"} state={this.props.state} shapes={this.props.shapes} setState={this.props.setState} type={ChartElementType.LINE} />
+                    <ElementDropZone color="rgb(229, 239, 212)" imgFile={process.env.PUBLIC_URL +"/icons/vertical_bar.svg"} shapes={this.props.shapes} state={this.props.state} setState={this.props.setState} type={ChartElementType.BAR} />
+                    <ElementDropZone color="#E4CCF0" imgFile={process.env.PUBLIC_URL +"/icons/vertical_boxplot.svg"} shapes={this.props.shapes} state={this.props.state} setState={this.props.setState} type={ChartElementType.BOX_PLOT} />
+                    <ElementDropZone color="#F6E6C3" imgFile={process.env.PUBLIC_URL +"/icons/scatter.svg"} shapes={this.props.shapes} state={this.props.state} setState={this.props.setState} type={ChartElementType.SCATTER} />
                 </div>
             </div>
         </div>)
